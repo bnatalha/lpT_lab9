@@ -1,6 +1,6 @@
 /**
 * @file
-* @brief Definição e implementação de myPilha do namespace natalha
+* @brief Definição e implementação de myPilha do namespace edb1
 * @author Natália Azevedo de Brito (https://github.com/bnatalha/)
 * @since 14/05/2017
 * @date 15/06/2017

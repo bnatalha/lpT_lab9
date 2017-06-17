@@ -3,14 +3,13 @@
 
 #include "natalia.h"
 
-/*
 void testar_lista()
 {
 
-	myLista<int> aaa;
-	myLista<int> bbb;
-	myLista<int> ccc;
-	myLista<int> ddd;
+	edb1::myLista<int> aaa;
+	edb1::myLista<int> bbb;
+	edb1::myLista<int> ccc;
+	edb1::myLista<int> ddd;
 	
 	// preenchendo listas
 	for (int i = 0; i <= 10; ++i)
@@ -46,7 +45,7 @@ void testar_lista()
 	cout << "aaa e ccc" << (aaa == ccc?" ":" não ") << "são iguais" << endl;
 	cout << "aaa e ddd" << (aaa == ddd?" ":" não ") << "são iguais" << endl;	
 }
-*/
+
 void testar_pilha()
 {
 	// Criando pilhas
@@ -108,9 +107,6 @@ void testar_pilha()
 		A.pop();
 		cout << "popping.." << endl;
 	}
-
-	cout << "Fim." << endl;
-	return 0;
 }
 
 #endif

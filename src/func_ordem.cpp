@@ -1,6 +1,6 @@
 /**
 * @file
-* @brief Implementação dos algoritmos do namespace natalia.
+* @brief Implementação dos algoritmos do namespace edb1.
 * @author Natália Azevedo de Brito (https://github.com/bnatalha)
 * @since 26/03/2017
 * @date 15/06/2017
@@ -76,7 +76,7 @@ namespace edb1
 	* @param ini posição inicial do arranjo
 	* @param fim posição final do arranjo
 	*/
-	void mySelectionSort (int *v, int ini, int fim){ //Retorna crescente
+	void mySelectionSort (int *v, int ini, int fim){
 		for ( ; ini < fim; ini++)
 			for (int ii = ini+1;		ii <= fim;	ii++)
 				if( v[ini] > v[ii] ) mySwap( v[ini], v[ii]);
@@ -121,26 +121,34 @@ namespace edb1
 	}
 
 	/**
-	* @brief Simula o merge sort, que faz um arranjo ordenado de dois arranjos ordenados,
+	* @brief Simula o merge sort, que faz um arranjo ordenado de dois arranjos ordenados
 	* @oaram dir um dos arranjos que será usado para fazer o arranjo ordenado (o da dierita)
 	* @param d_size tamanho de 'dir'
 	* @oaram esq um dos arranjos que será usado para fazer o arranjo ordenado (o da esquerda)
 	* @param e_size tamanho de 'esq'
 	* @param v arranjo de initeiros que receberá a ordenação
-	* @param fim posição final do arranjo 'v'
+	* @param v_size tamanho do arranjo 'v'
 	*/
-	void myMergeSort (int *dir, int d_size, int *esq, int e_size, int *v, int fim){
-		for (int i = d_size-1, j = e_size-1; 	j >= 0 or i >= 0; )
+	void myMergeSort (int *dir, int d_size, int *esq, int e_size, int *v, int v_size){
+		int fim = v_size-1;	// Índice do ultimo elemento de 'v'
+		int e = e_size-1;	// Índice do ultimo elemento de 'esq'
+		int d = d_size-1;	// Índice do ultimo elemento de 'd'
+
+		// Atribui a 'v' sempre o menor elemento da vez até que 'e' ou 'd' chegue "antes do início" de 'dir' e 'esq'
+		while( e >= 0 and d >= 0 )
 		{
-			// pra não comparar com índices negativos. se outro vetor ja acabou
-			if		( dir[i] >  esq[j] or j < 0 ) v[fim--] = dir[i--]; 
-			else if ( dir[i] <= esq[j] or i < 0 ) v[fim--] = esq[j--];
+			if		( dir[d] > esq[e] ) v[fim--] = dir[d--]; 
+			else if ( dir[d] <=  esq[e] ) v[fim--] = esq[e--];
 		}
+
+		// Despeja o resto dos elementos remanescentes nos arranjos após as comparações em 'v'
+		while (d >= 0) v[fim--] = dir[d--];
+		while (e >= 0) v[fim--] = esq[e--];		
 	}
 
 	/**
-	* @brief Simula o Split sort, dividindo um arranjo em duas partes até não poder mais para começar a uní-las novamente com o merge sort
-	* @oaram 
+	* @brief Simula o Split sort, dividindo um arranjo em duas partes até não poder mais para começar a
+	* uní-las novamente com o merge sort, tornando o arranjo passado ordenado de maneira crescente
 	* @param v arranjo de initeiros que receberá a ordenação
 	* @param ini posição inicial do arranjo
 	* @param fim posição final do arranjo 'v'
@@ -149,21 +157,21 @@ namespace edb1
 		int size = 1 + fim - ini;
 		if( size > 1 ){
 
-			int size_direita = (size/2) + (size%2); //direita sempre maior para ini = 0 e fim = par.
-			int size_esquerda = (size/2);
+			int size_esquerda = (size/2) + (size%2); //esquerda sempre maior para ini = 0 e fim = par.
+			int size_direita = (size/2);
 			int *direita = new int[ size_direita ];
 			int *esquerda = new int[ size_esquerda ];
 
 			for (int i = 0, e = 0, d = 0; i <= fim; ++i)
 			{
-				if(i <= (fim-ini)/2 ) direita[d++] = v[i];	//fim = par, dir(fim) = par e dir > esq
-				else esquerda[e++] = v[i];
+				if(i <= (fim-ini)/2 ) esquerda[e++] = v[i];	//fim = par, dir(fim) = par e dir > esq
+				else direita[d++] = v[i];
 			}
 
 			mySplitSort(direita,  0, size_direita-1 );
 			mySplitSort(esquerda, 0, size_esquerda-1 );
 
-			myMergeSort(direita, size_direita, esquerda, size_esquerda, v, fim);
+			myMergeSort(direita, size_direita, esquerda, size_esquerda, v, fim+1);
 
 			delete[] direita;
 			delete[] esquerda;

@@ -11,7 +11,7 @@ OBJ_DIR =build
 LIB_DIR =lib
 
 # Compilation flags
-CPPFLAGS += -Wall -ansi -std=c++11 -pedantic -O0 -g -I $(INC_DIR)
+CPPFLAGS += -Wall -ansi -std=c++11 -pedantic -O0 -g -I $(INC_DIR) -I include/lista
 
 # Compilators
 CC =g++

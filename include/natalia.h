@@ -1,6 +1,6 @@
 /**
 * @file
-* @brief Definição do namespace natalha
+* @brief Definição do namespace edb1
 * @author Natália Azevedo de Brito (https://github.com/bnatalha/)
 * @since 15/06/2017
 * @date --
@@ -91,6 +91,8 @@ namespace edb1
 			void push(const T& element);	/**< Acrescenta um elemento no topo da pilha, aumentando o tamanho da pilha */
 			void pop();	/**< Remove o elemento do topo da pilha, diminuindo o tamanho da pilha */
 	};
+
+	#include "myLista.h"
 }
 
 #include "myPilha.h"
