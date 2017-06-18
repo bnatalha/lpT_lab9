@@ -11,6 +11,9 @@
 #ifndef MYLISTA_00_H
 #define MYLISTA_00_H
 
+namespace edb1
+{
+
 // ========================== CONST_ITERATOR ==========================
 
 // Construtor 
@@ -198,6 +201,8 @@ typename myLista<T>::iterator& myLista<T>::iterator::operator=( const iterator& 
 {
 	this->atual = it_direita.atual;
 	return *this;
+}
+
 }
 
 #endif

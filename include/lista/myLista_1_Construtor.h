@@ -10,6 +10,8 @@
 #ifndef MYLISTA_1_H
 #define MYLISTA_1_H
 
+namespace edb1
+{
 /**
 * @brief Constrói uma lista vazia
 */
@@ -47,6 +49,7 @@ myLista<T>::myLista(const int& n, const T& val)
 {
 	while (size() < n)	// Enquanto o tamanho da lista for menor que 'n'
 		push_front(val);	// Adiciona a lista nós com elemento 'val'
+}
 }
 
 #endif

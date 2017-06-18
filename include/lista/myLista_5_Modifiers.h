@@ -10,6 +10,9 @@
 #ifndef MYLISTA_5_H
 #define MYLISTA_5_H
 
+namespace edb1
+{
+
 /**
 * @brief Remove todos os elementos da lista, a deixando com tamanho = 0.
 */
@@ -229,6 +232,8 @@ void myLista<T>::erase( myLista<T>::iterator &it )
 
 		qtd_elementos--; // Diminui o contador de elementos da lista
 	}
+}
+
 }
 
 #endif

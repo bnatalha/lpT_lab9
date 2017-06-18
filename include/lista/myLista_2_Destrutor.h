@@ -10,6 +10,8 @@
 #ifndef MYLISTA_2_H
 #define MYLISTA_2_H
 
+namespace edb1
+{
 /**
 * @brief Destroi a lista, destruindo seus elementos.
 */
@@ -18,5 +20,5 @@ myLista<T>::~myLista()
 {
 	clear();
 }
-
+}
 #endif

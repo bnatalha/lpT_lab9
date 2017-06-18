@@ -10,6 +10,8 @@
 #ifndef MYLISTA_01_H
 #define MYLISTA_01_H
 
+namespace edb1
+{
 /**
 * @brief Constrói um const_iterator que aponta para o início da lista (primeiro elemento)
 */
@@ -49,5 +51,5 @@ typename myLista<T>::iterator myLista<T>::end()
 	typename myLista<T>::iterator cit(NULL);	// NULL = sentinela_tail->proximo
 	return cit;
 }
-
+}
 #endif

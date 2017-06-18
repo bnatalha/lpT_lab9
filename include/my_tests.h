@@ -109,4 +109,78 @@ void testar_pilha()
 	}
 }
 
+void testar_fila()
+{
+	// Criando opilha vazia
+	cout << "Criando fila A (vazia)...";
+	edb1::myFila<int> A;
+	cout << "Pronto." << endl;
+
+	// Testes com pilhas vazias
+	cout << "A.size(): " << A.size() << ";\t";
+	cout << "'A'" << (A.empty()? "":" não") << " está vazia." << endl;
+
+	//for (int i = 1; i < 4; i++)
+	for (int i = 1; i <3; i++)
+	{	
+		cout << "A.push(" << i << ");" << endl;
+		A.push(i);
+		cout << "A.size(): " << A.size() << ";\t";
+		cout << "'A'" << (A.empty()? "":" não") << " está vazia." << endl;
+		cout << "A.front(): " << A.front() << " e A.back(): " << A.back() << "." << endl;
+		cout << "--" << endl;
+	}
+	cout << endl;
+
+	cout << "Criando fila B de A(1 elemento)...";
+	edb1::myFila<int> B(A);
+	cout << "Pronto." << endl;
+
+	cout << "B is" << (B.empty()? "":" not") << " empty." << endl;
+	cout << "B.front(): " << B.front() << " e B.back(): " << B.back() << "." << endl;
+	cout << "B.pop();" << endl;
+	B.pop();
+	cout << "B.size(): " << B.size() << ";\t";
+	cout << "B is" << (B.empty()? "":" not") << " empty." << endl;
+	cout << "B.front(): " << B.front() << " e B.back(): " << B.back() << "." << endl << endl;
+
+	for (int i = 1; i < 3; i++)
+	{	
+		cout << "A.pop();" << endl;
+		A.pop();
+		cout << "A.size(): " << A.size() << ";\t";
+		cout << "A.front(): " << A.front() << " e A.back(): " << A.back() << "." << endl;
+		cout << "--" << endl;
+	}
+	cout << endl;
+
+	for (int i = 7; i < 9; i++)
+	{	
+		cout << "A.push(" << i << ");" << endl;
+		A.push(i);
+		cout << "A.size(): " << A.size() << ";\t";
+		cout << "'A'" << (A.empty()? "":" não") << " está vazia." << endl;
+		cout << "A.front(): " << A.front() << " e A.back(): " << A.back() << "." << endl;
+		cout << "--" << endl;
+	}
+	cout << endl;
+
+	cout << "Criando Fila C de A...";
+	edb1::myFila<int> C(A);
+	cout << "Pronto." << endl;
+
+	cout << "Limpando A...";
+	while (A.empty() == false) A.pop();
+	cout << "Pronto." << endl;
+
+	cout << "C is" << (C.empty()? "":" not") << " empty." << endl;
+	cout << "C.front(): " << C.front() << " e C.back(): " << C.back() << "." << endl;
+	cout << "C.pop();" << endl;
+	C.pop();
+	cout << "C.size(): " << C.size() << ";\t";
+	cout << "C is" << (C.empty()? "":" not") << " empty." << endl;
+	cout << "C.front(): " << C.front() << " e C.back(): " << C.back() << "." << endl;
+	
+}
+
 #endif

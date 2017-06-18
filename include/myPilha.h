@@ -59,7 +59,7 @@ namespace edb1
 	{
 		if(tamanho == capacidade)
 		{
-			cerr << "push(): A capacidade da pilha já foi atingida "
+			cerr << "push(): A capacidade da pilha já foi atingida."
 				<< "(tamanho :"<< tamanho << ", capacidade:" << capacidade << ")." << endl;
 			exit(1);
 		}

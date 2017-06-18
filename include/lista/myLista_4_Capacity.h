@@ -10,6 +10,8 @@
 #ifndef MYLISTA_4_H
 #define MYLISTA_4_H
 
+namespace edb1
+{
 /**
 * @brief Checa se a quantidade de nós da lista
 * @return atributo qtd_elementos
@@ -29,5 +31,6 @@ bool myLista<T>::empty()
 	return ( size() == 0 );
 }
 
+}
 
 #endif

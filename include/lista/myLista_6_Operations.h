@@ -10,6 +10,9 @@
 #ifndef MYLISTA_6_H
 #define MYLISTA_6_H
 
+namespace edb1
+{
+
 /**
 * @brief Remove da listas, os nós cujos elementos sejam iguais a 'val'
 * @param val Valor buscado para ser removido
@@ -151,6 +154,8 @@ void myLista<T>::unique()
 	}
 
 	// *Tem que avançar o fast antes de destruir o nó para onde ele ta apontado
+
+}
 
 }
 
