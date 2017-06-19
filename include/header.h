@@ -28,5 +28,7 @@ using std::ostream;
 using std::ofstream;
 using std::ifstream;
 
+#include <stdexcept>
+
 
 #endif

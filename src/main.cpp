@@ -10,7 +10,7 @@
 #include "header.h"
 #include "natalia.h"
 #include "testar_ordenacao.h"
-#include "my_tests.h"
+#include "testar_fila.h"
 
 void test_myLista();
 

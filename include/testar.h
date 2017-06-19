@@ -147,13 +147,25 @@ void testar_fila()
 	for (int i = 1; i < 3; i++)
 	{	
 		cout << "A.pop();" << endl;
-		A.pop();
+		//try{
+			A.pop();
+		//}
+		//catch (std::out_of_range& e){
+		//	cout << e.what() << endl;
+		//}
+		//try{
 		cout << "A.size(): " << A.size() << ";\t";
 		cout << "A.front(): " << A.front() << " e A.back(): " << A.back() << "." << endl;
+		//}
+		//catch(...)
+		//{
+			cout << "error." << endl;
+		//}
 		cout << "--" << endl;
 	}
 	cout << endl;
 
+/*
 	for (int i = 7; i < 9; i++)
 	{	
 		cout << "A.push(" << i << ");" << endl;
@@ -180,7 +192,7 @@ void testar_fila()
 	cout << "C.size(): " << C.size() << ";\t";
 	cout << "C is" << (C.empty()? "":" not") << " empty." << endl;
 	cout << "C.front(): " << C.front() << " e C.back(): " << C.back() << "." << endl;
-	
+	*/
 }
 
 #endif

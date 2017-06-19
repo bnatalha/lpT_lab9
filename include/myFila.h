@@ -37,7 +37,6 @@ namespace edb1
 		else if(ini < fim) return ((fim-ini)+1);
 		//else if (ini > fim)
 		return ( (fim + (capacidade - ini) )+ 1);
-		cout << 'a' << endl;
 	}
 
 	/**
@@ -47,11 +46,8 @@ namespace edb1
 	T& myFila<T>::front()
 	{
 		if (empty())
-		{
-			cerr << "front(): Não há elementos na fila (tamanho: "<< size() << ")." << endl;
-			exit(1);
-		}
-		//else
+			throw std::out_of_range ("[EXCEPTION] front(): Não há elementos na fila");
+		
 
 		return fila[ini];
 	}
@@ -63,11 +59,8 @@ namespace edb1
 	T& myFila<T>::back()
 	{
 		if (empty())
-		{
-			cerr << "back(): Não há elementos na fila (tamanho: "<< size() << ")." << endl;
-			exit(1);
-		}
-		//else
+			throw std::out_of_range ("[EXCEPTION] back(): Não há elementos na fila");
+		
 
 		return fila[fim];
 	}
@@ -79,28 +72,22 @@ namespace edb1
 	void myFila<T>::push(const T& element)
 	{
 		if(size() == capacidade)
-		{
-			cerr << "push(): A capacidade da fila já foi atingida."
-				<< "(tamanho :"<< size() << ", capacidade:" << capacidade << ")." << endl;
-			exit(1);
-		}
-		//else
-		if (empty())
-			ini++;
+			throw std::length_error ("[EXCEPTION] push(): A capacidade máxima da fila (fixa em 50) já foi atingida.");
+		
+
+		if (empty())	// se for o primeiro elemento a entrar na fila
+			ini++;	// coloca 'ini' para apontar
+
 		fim = (fim+1)%capacidade;	// avança indice 'fim'
 		fila[fim] = element;	// Acrescenta elemento e depois aumenta o tamanho da fila
-		//cout << fila[fim] << endl;
 	}
 
 	template <typename T >
 	void myFila<T>::pop()
 	{
 		if (empty())
-		{
-			cerr << "pop(): Não pode remover elementos de uma fila de tamanho '"<< size() << "'." << endl;
-			exit(1);
-		}
-		//else
+			throw std::length_error ("[EXCEPTION] pop(): Não pode remover elementos de uma fila de tamanho vazia");
+		
 
 		fila[ini].~T();	// Remove elemento da frente
 
