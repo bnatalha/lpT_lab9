@@ -4,7 +4,7 @@
 * @author Natália Azevedo de Brito (https://github.com/bnatalha)
 * @since 20/06/2017
 * @date 20/06/17
-* @sa --
+* @date 20/06/17
 */
 
 #ifndef TESTAR_DEQUE

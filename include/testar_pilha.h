@@ -3,8 +3,7 @@
 * @brief Testes com myPilha.
 * @author Natália Azevedo de Brito (https://github.com/bnatalha)
 * @since 18/06/2017
-* @date --
-* @sa --
+* @date 20/06/17
 */
 
 #ifndef TESTAR_PILHA_H

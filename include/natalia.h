@@ -3,7 +3,7 @@
 * @brief Definição do namespace edb1
 * @author Natália Azevedo de Brito (https://github.com/bnatalha/)
 * @since 15/06/2017
-* @date --
+* @date 20/06/17
 */
 
 #ifndef NATALIA_H

@@ -3,8 +3,7 @@
 * @brief Implementação dos algoritmos do namespace edb1.
 * @author Natália Azevedo de Brito (https://github.com/bnatalha)
 * @since 26/03/2017
-* @date 15/06/2017
-* @sa --
+* @date 20/06/17
 */
 
 #include "natalia.h"

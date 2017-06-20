@@ -3,7 +3,7 @@
 * @brief Implementação de myDeque do namespace edb1
 * @author Natália Azevedo de Brito (https://github.com/bnatalha/)
 * @since 18/06/2017
-* @date 15/06/2017
+* @date 20/06/17
 * @sa std::deque (http://www.cplusplus.com/reference/deque/deque/)
 * @sa https://stackoverflow.com/questions/6292332/what-really-is-a-deque-in-stl
 * @sa http://en.cppreference.com/w/cpp/container/deque

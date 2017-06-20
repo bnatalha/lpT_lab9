@@ -3,8 +3,7 @@
 * @brief Cabeçário principal.
 * @author Natália Azevedo de Brito (https://github.com/bnatalha)
 * @since 13/06/2017
-* @date --
-* @sa --
+* @date 20/06/17
 */
 
 #ifndef HEADER_H

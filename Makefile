@@ -24,11 +24,14 @@ AR =ar
 # - - - - - - - - - - - - - - - - - - - -
 
 # =============== PHONY =================
-#.PHONY: windows linux init val clean docs
-.PHONY: linux init val clean docs
+.PHONY: windows linux init val clean docs
+#.PHONY: linux init val clean docs
 
 # Generates the necessary filse for this library to run on a (Debian based) linux system
-linux: natalia.a natalia.so prog_estatico prog_dinamico
+linux: init natalia.a natalia.so prog_estatico prog_dinamico
+
+# Generates the necessary filse for this library to run on a windows system with MinGW
+windows: init natalia.lib natalia.dll prog_estatico prog_dinamico
 
 # Creates the 'build' and the 'lib' folder at the current directory if there's no other folder with this name on it.
 init:
@@ -56,18 +59,36 @@ vald:
 natalia.a: $(SRC_DIR)/func_ordem.cpp $(INC_DIR)/myPilha.h $(INC_DIR)/header.h
 	$(CC) $(CPPFLAGS) -c $(SRC_DIR)/func_ordem.cpp -o $(OBJ_DIR)/func_ordem.o
 	$(AR) rcs $(LIB_DIR)/$@ $(OBJ_DIR)/func_ordem.o
-	@echo "++++++ [Biblioteca estática criada em $(LIB_DIR)/$@] ++++++"
+	@echo "++++++ [Biblioteca estática para linux criada em $(LIB_DIR)/$@] ++++++"
 
 natalia.so: $(SRC_DIR)/func_ordem.cpp $(INC_DIR)/myPilha.h $(INC_DIR)/header.h
 	$(CC) $(CPPFLAGS) -fPIC -c $(SRC_DIR)/func_ordem.cpp -o $(OBJ_DIR)/func_ordem.o
 	$(CC) -shared -fPIC -o $(LIB_DIR)/$@ $(OBJ_DIR)/func_ordem.o
-	@echo "++++++ [Biblioteca dinâmica criada em $(LIB_DIR)/$@] ++++++"
+	@echo "++++++ [Biblioteca dinâmica para linux criada em $(LIB_DIR)/$@] ++++++"
 
 prog_estatico:
 	$(CC) $(CPPFLAGS) $(SRC_DIR)/main.cpp $(LIB_DIR)/natalia.a -o $(OBJ_DIR)/$@
 
 prog_dinamico:
 	$(CC) $(CPPFLAGS) $(SRC_DIR)/main.cpp $(LIB_DIR)/natalia.so -o $(OBJ_DIR)/$@
+
+# WINDOWS
+
+natalia.lib: $(SRC_DIR)/func_ordem.cpp $(INC_DIR)/myPilha.h $(INC_DIR)/natalia.h
+	$(CC) $(CPPFLAGS) -c $(SRC_DIR)/func_ordem.cpp -o $(OBJ_DIR)/func_ordem.o
+	$(AR) rcs $(LIB_DIR)/$@ $(OBJ_DIR)/func_ordem.o
+	@echo "+++ [Biblioteca estatica para windows criada em $(LIB_DIR)/$@] +++"
+
+natalia.dll: $(SRC_DIR)/func_ordem.cpp $(INC_DIR)/myPilha.h $(INC_DIR)/natalia.h
+	$(CC) $(CPPFLAGS) -c $(SRC_DIR)/func_ordem.cpp -o $(OBJ_DIR)/func_ordem.o
+	$(CC) -shared -o $(LIB_DIR)/$@ $(OBJ_DIR)/func_ordem.o
+	@echo "+++ [Biblioteca dinamica para windows criada em $(LIB_DIR)/$@] +++"
+
+prog_estatico.exe:
+	$(CC) $(CPPFLAGS) $(SRC_DIR)/main.cpp $(LIB_DIR)/natalia.lib -o $(OBJ_DIR)/$@ 
+
+prog_dinamico.exe:
+	$(CC) $(CPPFLAGS) $(SRC_DIR)/main.cpp $(LIB_DIR)/natalia.dll -o $(OBJ_DIR)/$@ 	
 
 
 # ================ CLEANER ================
