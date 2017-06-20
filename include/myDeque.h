@@ -10,85 +10,47 @@
 * @sa https://www.codeproject.com/Articles/5425/An-In-Depth-Study-of-the-STL-Deque-Container
 */
 
-#ifndef MYFILA_H
-#define MYFILA_H
+#ifndef MYDEQUE_H
+#define MYDEQUE_H
 
 #include "natalia.h"
 
-	/**
-	* @class myDeque
-	* @brief Um deque que usa um array circular alocado dinâmicamente (sem iterator)
-	* @tparam T Tipo dos elementos da lista
-	*/
-	template < typename T >
-	class myDeque
-	{
-		private:
-			int capacidade = 50;	/**< Capacidade máxima do deque */
-			int ini;	/**< Índice para o inicio do deque */
-			int fim;	/**< Índice para o fim do deque */
-			T* recipiente;	/**< Onde os elementos do deque serão guardados*/
-
-			void my_reallocator();
-
-		public:
-			// Construtor
-			myDeque();
-			myDeque( const myDeque & orig );
-			// Destrutor
-			~myDeque();
-			// Acesso a elementos
-			T& operator[] (int n);
-			T& front();
-			T& back();
-			// Capacidade
-			int size();
-			bool empty();
-			// Modificadores
-			void push_sorted( T elem );
-			void push_back( const T& elem );
-			bool pop_back();
-			void push_front( const T& elem );
-			bool pop_front();
-			void clear();
-			// Sobrecarga de operadores
-			bool operator== ( myDeque<T> d_direita);
-			myDeque<T>& operator= (const myDeque<T>& copy);
-			// PARA TESTE: sobrecarga operador <<
-			//template <typename foo>
-			//friend std::ostream& operator<< (std::ostream& out, const myDeque<foo> copy);
-	};
-
 namespace edb1
 {
+	// Implementação do Dequeue
+
 	/**
 	* @brief Realoca o container do deque para o dobro de sua capacidade total
 	*/
 	template <typename T>
 	void myDeque<T>::my_reallocator()
 	{
-		cout << "(dobrando capacidade)";
+		bool is_empty = empty();	// guarda se o deuque está vazio ou não
+
+		T* new_recipiente;	// ponteiro para o novo recipiente;
 
 		// tenta alocar o dobro da capacidade do deque atual
 		try{
-			T* new_recipiente = new T[capacidade*2];	// cria um novo recipiente com o dobro de capacidade
+			new_recipiente = new T[capacidade*2];	// cria um novo recipiente com o dobro de capacidade
 		}catch (std::bad_alloc& ba)		{
-			cout << << "bad_alloc caught: " << ba.what() << endl;
+			cout << "bad_alloc caught: " << ba.what() << endl;
 		}
 		
-		for (int n = 0, i = ini; n < size(); n++)	// atribui ao novo bloco de memoria informações do atual
+		int new_fim = 0;
+		for (int i = ini; new_fim < size(); new_fim++)	// atribui ao novo bloco de memoria informações do atual
 		{
-			new_recipiente[n] = recipiente[i];
+			new_recipiente[new_fim] = recipiente[i];
+			//cout << recipiente[i] << " ";
 			i = ((i+1) % capacidade);
 		}
 
 		// fixa indices 
-		ini = ( empty()? -1 : 0 );
-		fim = size() -1;
-		
+		ini = ( is_empty? -1 : 0 );
+		fim = ( is_empty? -1 : new_fim-1 );
 
-		delete[] recipiente;	// Deleta bloco de memoria apontado por 'recipiente'
+		delete[] recipiente;	// Deleta bloco de memoria apontado por 'recipiente' (antigo)
 		recipiente = new_recipiente;	// aponta 'recipiente' para o bloco de memoria criado
+		capacidade = capacidade*2;	// dobra 'capacidade'
 	}
 
 	// =================================================================================================
@@ -99,13 +61,13 @@ namespace edb1
 	* @brief Constrói um objeto myDeque vazio
 	*/
 	template <typename T>
-	myDeque<T>::myDeque()	: capacidade(4), ini(-1), fim(-1)
+	myDeque<T>::myDeque()	: capacidade(20), ini(-1), fim(-1)
 	{
 		// tenta alocar o Deque.
 		try{
 			recipiente = new T[capacidade];
 		}catch (std::bad_alloc& ba)		{
-			cout << << "bad_alloc caught: " << ba.what() << endl;
+			cout << "bad_alloc caught: " << ba.what() << endl;
 		}
 
 	}
@@ -115,17 +77,21 @@ namespace edb1
 	* @param objeto myDeque que será usado como referência para ser copiado
 	*/
 	template <typename T>
-	myDeque<T>::myDeque( const myDeque & orig )	: capacidade(orig.capacidade), ini(orig.ini), fim(orig.fim)
+	myDeque<T>::myDeque( myDeque & orig )	: capacidade(orig.capacidade)
+	//myDeque<T>::myDeque( myDeque & orig )	: capacidade(orig.capacidade), ini(orig.ini), fim(orig.fim)
 	{
 		// tenta alocar o Deque com a capacidade do deque 'orig'.
 		try{
 			recipiente = new T[orig.capacidade];		
 		}catch (std::bad_alloc& ba)		{
-			cout << << "bad_alloc caught: " << ba.what() << endl;
+			cout << "bad_alloc caught: " << ba.what() << endl;
 		}
 
 		// copia os elementos de orig para este deque
-		for(i = 0; i < orig.size(); i++) this->recipiente[i] = orig.recipiente[i];
+		for(int i = 0; i < orig.size(); i++) recipiente[i] = orig.at(i);
+		
+		ini = (orig.empty()? -1 : 0);
+		fim = (orig.empty()? -1 : orig.size()-1);
 	}
 
 	// =========================================== Destrutor ========================================
@@ -134,7 +100,7 @@ namespace edb1
 	* @brief Destrói um objeto myDeque, destruindo sua 'recipiente'
 	*/
 	template <typename T>
-	myDeque<T>::myDeque()
+	myDeque<T>::~myDeque()
 	{
 		delete[] recipiente;
 	}
@@ -165,7 +131,7 @@ namespace edb1
 	{
 		if(empty())	// Se deque estiver vazio
 			throw std::out_of_range ("[EXCEPTION] operator[]: Não há elementos no deque");
-		if(n => size)	// Se a posição requisitada for maior do que o tamanho do deque
+		if(n >= size())	// Se a posição requisitada for maior do que o tamanho do deque
 			throw std::out_of_range ("[EXCEPTION] operator[]: posição requisitada > tamanho do deque");
 
 		return recipiente[ (ini + n )% capacidade ];
@@ -187,7 +153,7 @@ namespace edb1
 	* @return Referência para o elemento no fim da recipiente,  se existir.
 	*/
 	template <typename T >
-	T& myFila<T>::back()
+	T& myDeque<T>::back()
 	{
 		if (empty())	// Se deque estiver vazio, chamar exceção
 			throw std::out_of_range ("[EXCEPTION] back(): Não há elementos na recipiente");
@@ -215,7 +181,7 @@ namespace edb1
 	*/
 	template <typename T >
 	int myDeque<T>::size()
-	{
+	{		
 		if (ini == -1) return 0;
 		else if(ini == fim ) return 1;
 		else if(ini < fim) return ((fim-ini)+1);
@@ -229,7 +195,7 @@ namespace edb1
 
 	/**
 	* @brief Acrescenta um elemento no final do Deque
-	* @param element Elemento do tipo T a ser acrescentado na frente da fila
+	* @param element Elemento do tipo T a ser acrescentado ao deque
 	*/
 	template <typename T>
 	void myDeque<T>::push_back( const T& elem )
@@ -241,7 +207,7 @@ namespace edb1
 			ini++;	// coloca 'ini' para apontar
 
 		fim = (fim+1)%capacidade;	// avança indice 'fim'
-		recipiente[fim] = element;	// Acrescenta elemento e depois aumenta o tamanho da 'recipiente'
+		recipiente[fim] = elem;	// Acrescenta elemento e depois aumenta o tamanho da 'recipiente'
 	}
 	/**
 	* @brief Remove o elemento no fim do Deque
@@ -261,32 +227,33 @@ namespace edb1
 			fim = -1;
 		}
 		else
-			fim = (fim-1)%capacidade;	// retrocede indice 'fim'
+			fim = ((fim-1) < 0? (capacidade + (fim-1)) : (fim-1)) %capacidade;	// retrocede indice 'fim'
 		
 	}
 
 	/**
 	* @brief Acrescenta um elemento no início do Deque
-	* @param element Elemento do tipo T a ser acrescentado na frente da 'recipiente'
+	* @param element Elemento do tipo T a ser acrescentado ao deque
 	*/
 	template <typename T>
-	void myDeque<T>::push_front( const T& elem );
+	void myDeque<T>::push_front( const T& elem )
 	{	
-		if(size() == capacidade)	
+		if(size() == capacidade)
 			my_reallocator();	// Realocar o tamanho do container do Deque quando atingir a capacidade maxima inicial
-		
+			
 		if (empty())	// se for o primeiro elemento a entrar na 'recipiente'
 			fim++;	// coloca 'fim' para apontar
 
-		ini = (ini-1)%capacidade;	// retrocede indice 'ini'
-		recipiente[ini] = element;	// Acrescenta elemento e depois aumenta o tamanho da 'recipiente'
+		ini = ((ini-1) < 0? (capacidade + (ini-1)) : (ini-1))  %capacidade;	// retrocede indice 'ini'
+		
+		recipiente[ini] = elem;	// Acrescenta elemento e depois aumenta o tamanho da 'recipiente'
 	}
 
 	/**
 	* @brief Remove o elemento no início do Deque
 	*/
 	template <typename T>
-	void myDeque<T>::pop_front();
+	void myDeque<T>::pop_front()
 	{
 		if (empty())
 			throw std::length_error ("[EXCEPTION] pop_front(): Não pode remover elementos de um deque vazio");
@@ -325,9 +292,9 @@ namespace edb1
 	* @return 'true' se forem iguais, 'false' caso contrário
 	*/
 	template <typename T>
-	bool myDeque<T>::operator== ( myDeque<T> d_direita)
+	bool myDeque<T>::operator== ( myDeque<T>& d_direita)
 	{
-		if(size() == d_direita)
+		if(size() == d_direita.size())
 		{
 			// cria indices para comparação
 			int i = ini, dir_i = d_direita.ini;
@@ -351,17 +318,30 @@ namespace edb1
 	* @param orig Objeto myDeque a ser copiado
 	*/
 	template <typename T>
-	myDeque<T>& myDeque<T>::operator= (const myDeque<T>& orig)
+	myDeque<T>& myDeque<T>::operator= (myDeque<T>& orig)
 	{
-		if( (*this == orig) == false ) // Se os deques não forem iguais
+		if( not(*this == orig) ) // Se os deques não forem iguais
 		{
-		//	while (empty() == false)pop_back();	// Se o Deque não estiver vazio, o torna vazio
+			clear();	// Se o Deque não estiver vazio, o torna vazio
 
-	/*!*/	this->(orig)	// Chama o construtor cópia com origem
+			delete[] recipiente;	// Deleta bloco de memoria apontado por 'recipiente'
+
+			// tenta alocar o Deque com a capacidade do deque 'orig'.
+			try{
+				recipiente = new T[orig.capacidade];		
+			}catch (std::bad_alloc& ba)		{
+				cout << "bad_alloc caught: " << ba.what() << endl;
+			}
+
+			// copia os elementos de orig para este deque
+			for(int i = 0; i < orig.size(); i++) recipiente[i] = orig.at(i);
+			
+			ini = (orig.empty()? -1 : 0);
+			fim = (orig.empty()? -1 : orig.size()-1);
 		}
 
 		return *this;
 	}
-;}
+}
 
 #endif

@@ -12,8 +12,7 @@
 #include "testar_ordenacao.h"
 #include "testar_fila.h"
 #include "testar_pilha.h"
-
-void test_myLista();
+#include "testar_deque.h"
 
 /**
 * @brief Realiza testes com os objetos/algoritmos do namespace edb1
@@ -30,15 +29,15 @@ int main(int argc, char const *argv[])
 	testar_lista();
 	cout << "=======================================fim" << endl;
 	*/cout << "================ myPilha =================" << endl;
-	testar_pilha();
+	//testar_pilha();
 	cout << "=======================================fim" << endl;
 	cout << "================ myFila ==================" << endl;
-	testar_fila();
+	//testar_fila();
 	cout << "=======================================fim" << endl;
-	/*cout << "================ myDeque =================" << endl;
-	// test myDeque
+	cout << "================ myDeque =================" << endl;
+	testar_deque();
 	cout << "=======================================fim" << endl;
-	cout << "============== myTabelaHash ==============" << endl;
+	/*cout << "============== myTabelaHash ==============" << endl;
 	// test myDeque
 	cout << "=======================================fim" << endl;
 	*/cout << "--------------------------------------------------------------------------------" << endl;

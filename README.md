@@ -1,6 +1,11 @@
 ## Laboratório 9
 ###### por [Natália Azevedo de Brito](https://github.com/bnatalha)
 
+Este programa contem:
+- Algoritmos de ordenação para arrays;
+- TAD's pilha, fila, deque e lista;
+- Testes para todos métodos do namespace edb1.
+
 ### Compilando:
 ###### para linux:
 

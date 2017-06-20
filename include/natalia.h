@@ -314,6 +314,49 @@ namespace edb1
 			void pop();	/**< Remove o elemento na frente da fila, diminuindo o tamanho da fila */
 	};
 
+	/**
+	* @class myDeque
+	* @brief Um deque que usa um array circular alocado dinâmicamente (sem iterator)
+	* @tparam T Tipo dos elementos da lista
+	*/
+	template < typename T >
+	class myDeque
+	{
+		private:
+			int capacidade;	/**< Capacidade máxima do deque */
+			int ini;	/**< Índice para o inicio do deque */
+			int fim;	/**< Índice para o fim do deque */
+			T* recipiente;	/**< Onde os elementos do deque serão guardados*/
+
+			void my_reallocator();
+
+		public:
+			// Construtor
+			myDeque();
+			myDeque( myDeque & orig );
+			// Destrutor
+			~myDeque();
+			// Acesso a elementos
+			T& operator[] (int n);
+			T& at (int n);
+			T& front();
+			T& back();
+			// Capacidade
+			int size();
+			bool empty();
+			// Modificadores
+			void push_back( const T& elem );
+			void pop_back();
+			void push_front( const T& elem );
+			void pop_front();
+			void clear();
+			// Sobrecarga de operadores
+			bool operator== ( myDeque<T>& d_direita);
+			myDeque<T>& operator= ( myDeque<T>& copy);
+			// PARA TESTE: sobrecarga operador <<
+			//template <typename foo>
+			//friend std::ostream& operator<< (std::ostream& out, const myDeque<foo> copy);
+	};
 
 }
 
