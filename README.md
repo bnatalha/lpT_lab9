@@ -3,8 +3,9 @@
 
 Este programa contem:
 - Algoritmos de ordenação para arrays;
-- TAD's pilha, fila, deque e lista;
+- TAD's pilha, fila, deque e lista*;
 - Testes para todos métodos do namespace edb1.
+*(exceções não foram implementadas)
 
 ### Compilando:
 ###### para linux:
