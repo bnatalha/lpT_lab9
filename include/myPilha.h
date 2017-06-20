@@ -1,6 +1,6 @@
 /**
 * @file
-* @brief Definição e implementação de myPilha do namespace edb1
+* @brief Implementação de myPilha do namespace edb1
 * @author Natália Azevedo de Brito (https://github.com/bnatalha/)
 * @since 14/05/2017
 * @date 15/06/2017
@@ -42,11 +42,7 @@ namespace edb1
 	T& myPilha<T>::top()
 	{
 		if (empty())
-		{
-			cerr << "top(): Não há elementos na pilha (tamanho: "<< tamanho << ")." << endl;
-			exit(1);
-		}
-		//else
+			throw std::out_of_range ("[EXCEPTION] top(): Não há elementos na pilha");
 
 		return pilha[tamanho-1];
 	}
@@ -58,12 +54,7 @@ namespace edb1
 	void myPilha<T>::push(const T& element)
 	{
 		if(tamanho == capacidade)
-		{
-			cerr << "push(): A capacidade da pilha já foi atingida."
-				<< "(tamanho :"<< tamanho << ", capacidade:" << capacidade << ")." << endl;
-			exit(1);
-		}
-		//else
+			throw std::length_error ("[EXCEPTION] push(): A capacidade máxima da pilha (fixa em 50) já foi atingida.");
 
 		pilha[tamanho++] = element;	// Acrescenta elemento e depois aumenta o tamanho da pilha
 	}
@@ -72,11 +63,7 @@ namespace edb1
 	void myPilha<T>::pop()
 	{
 		if (empty())
-		{
-			cerr << "pop(): Não pode remover elementos de uma pilha de tamanho '"<< tamanho << "'." << endl;
-			exit(1);
-		}
-		//else
+			throw std::length_error ("[EXCEPTION] pop(): Não pode remover elementos de uma pilha vazia");
 
 		pilha[(tamanho--)-1].~T();	// Remove elemento e depois diminui o tamanho da pilha
 	}

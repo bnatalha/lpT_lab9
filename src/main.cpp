@@ -11,11 +11,12 @@
 #include "natalia.h"
 #include "testar_ordenacao.h"
 #include "testar_fila.h"
+#include "testar_pilha.h"
 
 void test_myLista();
 
 /**
-* @brief Função principal
+* @brief Realiza testes com os objetos/algoritmos do namespace edb1
 */
 int main(int argc, char const *argv[])
 {
@@ -29,7 +30,7 @@ int main(int argc, char const *argv[])
 	testar_lista();
 	cout << "=======================================fim" << endl;
 	*/cout << "================ myPilha =================" << endl;
-	//testar_pilha();
+	testar_pilha();
 	cout << "=======================================fim" << endl;
 	cout << "================ myFila ==================" << endl;
 	testar_fila();

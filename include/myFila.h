@@ -1,8 +1,8 @@
 /**
 * @file
-* @brief Definição e implementação de myFila do namespace edb1
+* @brief Implementação de myFila do namespace edb1
 * @author Natália Azevedo de Brito (https://github.com/bnatalha/)
-* @since 14/05/2017
+* @since 18/06/2017
 * @date 15/06/2017
 * @sa std::stack (http://www.cplusplus.com/reference/stack/stack/)
 */
@@ -86,7 +86,7 @@ namespace edb1
 	void myFila<T>::pop()
 	{
 		if (empty())
-			throw std::length_error ("[EXCEPTION] pop(): Não pode remover elementos de uma fila de tamanho vazia");
+			throw std::length_error ("[EXCEPTION] pop(): Não pode remover elementos de uma fila vazia");
 		
 
 		fila[ini].~T();	// Remove elemento da frente

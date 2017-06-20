@@ -1,3 +1,12 @@
+/**
+* @file
+* @brief Testes com myFila.
+* @author Natália Azevedo de Brito (https://github.com/bnatalha)
+* @since 18/06/2017
+* @date --
+* @sa --
+*/
+
 #ifndef TESTAR_FILA_H
 #define TESTAR_FILA_H
 
@@ -15,6 +24,9 @@ void try_pop(edb1::myFila<T>& test, const char queue_name);
 template <typename T >
 void try_push(edb1::myFila<T>& test, const char queue_name, const T element);
 
+/**
+* @brief Realiza testes com objetoss da classe myFila
+*/
 void testar_fila()
 {
 	// Criando opilha vazia
@@ -24,6 +36,8 @@ void testar_fila()
 
 	// Testes com pilhas vazias
 	test_size_empty(A,'A');
+	try_front_back(A,'A');
+	try_pop(A,'A');
 
 	cout << "Pushing A..." << endl;
 	//for (int i = 1; i < 4; i++)

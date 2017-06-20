@@ -48,7 +48,7 @@ namespace edb1
 	{
 		private:
 
-			static const int capacidade = 50;	/**< Capacidade padrão de todas as pilhas */
+			static const int capacidade = 2;	/**< Capacidade padrão de todas as pilhas */
 			int tamanho;	/**< Quantitade de elementos na pilha */
 			T *pilha = NULL;	/**< Arranjo que será alocado dinamicamente para guardar os elementos da pilha */
 
@@ -259,7 +259,7 @@ namespace edb1
 
 	/**
 	* @class myFila
-	* @brief classe criada para simular a classe std::stack da STL do C++
+	* @brief Uma fila que usa um array circular alocado dinâmicamente
 	* @tparam T Tipo dos elementos da fila
 	*/
 	template < typename T >
@@ -286,7 +286,7 @@ namespace edb1
 			* @brief Constroi um objeto myFila  partir de uma fila já definida pelo usuário
 			* @param my_queue myFila já existente que será sada pra construir a atual
 			*/
-/*!*/			myFila(const myFila &my_queue)
+			myFila(const myFila &my_queue)
 				: ini(my_queue.ini), fim(my_queue.fim), fila(new T[capacidade])
 			{
 				for (int i = 0; i < capacidade; ++i)
@@ -313,10 +313,13 @@ namespace edb1
 			void push(const T& element);	/**< Acrescenta um elemento na frente da fila, aumentando o tamanho da fila */
 			void pop();	/**< Remove o elemento na frente da fila, diminuindo o tamanho da fila */
 	};
+
+
 }
 
 #include "myPilha.h"
 #include "myLista.h"
 #include "myFila.h"
+#include "myDeque.h"
 
 #endif
